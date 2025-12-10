@@ -66,7 +66,7 @@ export const TaskNode: React.FC<Props> = ({ data, selected }) => {
         )}
         {data.dueDate && (
           <div style={{ fontSize: '11px', color: '#555', display: 'flex', alignItems: 'center', gap: '5px' }}>
-            <span>📅</span>
+            <span></span>
             <span>{data.dueDate}</span>
           </div>
         )}
