@@ -13,16 +13,22 @@ export const TaskNode: React.FC<Props> = ({ data, selected }) => {
   return (
     <div style={{
       padding: '16px 20px',
-      borderRadius: '12px',
-      border: '1.5px solid #2196f3',
-      background: 'linear-gradient(135deg, #ffffff 0%, #f5f9ff 100%)',
-      minWidth: '200px',
-      boxShadow: elevate ? '0 18px 34px rgba(33, 150, 243, 0.22)' : '0 14px 30px rgba(33, 150, 243, 0.18)',
+      borderRadius: '18px',
+      border: '2.5px solid #2196f3',
+      background: 'linear-gradient(135deg, #ffffff 0%, #f3fafe 100%)',
+      minWidth: '220px',
+      boxShadow: elevate 
+        ? '0 22px 48px 0 rgba(33,150,243,0.25), 0 1.5px 18px #2196f344' 
+        : '0 10px 26px rgba(33,150,243,.17)',
       position: 'relative',
-      transition: 'transform 0.15s ease, box-shadow 0.15s ease',
-      transform: elevate ? 'translateY(-2px) scale(1.01)' : 'translateY(0) scale(1)',
-      borderColor: elevate ? '#1d4ed8' : '#2196f3'
+      transition: 'transform 0.22s cubic-bezier(0.44,0,0.56,1), box-shadow 0.24s cubic-bezier(0.42,0,0.58,1)',
+      transform: elevate ? 'translateY(-3px) scale(1.022)' : 'translateY(0) scale(1)',
+      borderColor: elevate ? '#1d4ed8' : '#2196f3',
+      animation: 'fadeGrow 0.36s cubic-bezier(.32,0,.67,0) 1',
+      outline: selected ? '2.5px solid #60a5fa' : undefined,
+      zIndex: elevate ? 3 : 2
     }}
+    aria-label={data.title}
     onMouseEnter={() => setHovered(true)}
     onMouseLeave={() => setHovered(false)}
     >
