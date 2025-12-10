@@ -46,62 +46,28 @@ export const AutomatedStepNodeForm: React.FC<Props> = ({ data, onChange }) => {
   };
 
   return (
-    <div style={{ padding: '20px' }}>
-      <div style={{ marginBottom: '20px' }}>
-        <label style={{ 
-          display: 'block', 
-          marginBottom: '8px', 
-          fontWeight: 600,
-          fontSize: '13px',
-          color: '#333'
-        }}>
-          Title *
-        </label>
+    <div className="form-card">
+      <div className="form-group">
+        <label className="form-label">Title *</label>
         <input
+          className="form-input"
           type="text"
           value={data.title}
           onChange={(e) => onChange({ title: e.target.value })}
-          style={{ 
-            width: '100%', 
-            padding: '10px 12px', 
-            borderRadius: '6px', 
-            border: '1px solid #d0d0d0',
-            fontSize: '14px',
-            color: '#333',
-            backgroundColor: '#fff',
-            boxSizing: 'border-box'
-          }}
-          placeholder="Enter step title"
+          placeholder="Automated step title"
           required
         />
       </div>
 
-      <div style={{ marginBottom: '20px' }}>
-        <label style={{ 
-          display: 'block', 
-          marginBottom: '8px', 
-          fontWeight: 600,
-          fontSize: '13px',
-          color: '#333'
-        }}>
-          Action Type
-        </label>
+      <div className="form-group">
+        <label className="form-label">Action Type</label>
         <select
+          className="form-select"
           value={data.actionId || ''}
           onChange={(e) => handleActionChange(e.target.value)}
           disabled={loading}
-          style={{ 
-            width: '100%', 
-            padding: '10px 12px', 
-            borderRadius: '6px', 
-            border: '1px solid #d0d0d0',
-            fontSize: '14px',
-            color: '#333',
-            backgroundColor: '#fff',
-            boxSizing: 'border-box'
-          }}
         >
-          <option value="">{loading ? 'Loading...' : 'Select Action'}</option>
+          <option value="">{loading ? 'Loading...' : 'Select action'}</option>
           {actions.map(action => (
             <option key={action.id} value={action.id}>
               {action.label}
@@ -111,41 +77,18 @@ export const AutomatedStepNodeForm: React.FC<Props> = ({ data, onChange }) => {
       </div>
 
       {selectedAction && (
-        <div style={{ marginBottom: '20px' }}>
-          <label style={{ 
-            display: 'block', 
-            marginBottom: '12px', 
-            fontWeight: 600,
-            fontSize: '13px',
-            color: '#333'
-          }}>
-            Action Parameters
-          </label>
+        <div className="form-group">
+          <label className="form-label">Action Parameters</label>
           {selectedAction.params.map(param => (
-            <div key={param} style={{ marginBottom: '15px' }}>
-              <label style={{ 
-                display: 'block', 
-                marginBottom: '5px', 
-                fontSize: '12px',
-                color: '#666',
-                textTransform: 'capitalize'
-              }}>
+            <div key={param} className="form-group">
+              <label className="form-label" style={{ fontSize: '12px', color: '#4b5563' }}>
                 {param.replace(/_/g, ' ')}
               </label>
               <input
+                className="form-input"
                 type="text"
                 value={data.parameters?.[param] || ''}
                 onChange={(e) => handleParameterChange(param, e.target.value)}
-                style={{ 
-                  width: '100%', 
-                  padding: '10px 12px', 
-                  borderRadius: '6px', 
-                  border: '1px solid #d0d0d0',
-                  fontSize: '14px',
-                  color: '#333',
-                  backgroundColor: '#fff',
-                  boxSizing: 'border-box'
-                }}
                 placeholder={`Enter ${param}`}
               />
             </div>

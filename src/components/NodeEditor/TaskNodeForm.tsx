@@ -14,7 +14,7 @@ export const TaskNodeForm: React.FC<Props> = ({ data, onChange }) => {
     if (customKey && customValue) {
       onChange({
         customFields: {
-          ...data.customFields,
+          ...(data.customFields || {}),
           [customKey]: customValue
         }
       });
@@ -30,217 +30,76 @@ export const TaskNodeForm: React.FC<Props> = ({ data, onChange }) => {
   };
 
   return (
-    <div style={{ padding: '20px' }}>
-      <div style={{ marginBottom: '20px' }}>
-        <label style={{ 
-          display: 'block', 
-          marginBottom: '8px', 
-          fontWeight: 600,
-          fontSize: '13px',
-          color: '#333'
-        }}>
-          Title *
-        </label>
+    <div className="form-card">
+      <div className="form-group">
+        <label className="form-label">Title *</label>
         <input
+          className="form-input"
           type="text"
           value={data.title}
           onChange={(e) => onChange({ title: e.target.value })}
-          style={{ 
-            width: '100%', 
-            padding: '10px 12px', 
-            borderRadius: '6px', 
-            border: '1px solid #d0d0d0',
-            fontSize: '14px',
-            color: '#333',
-            backgroundColor: '#fff',
-            boxSizing: 'border-box'
-          }}
-          placeholder="Enter task title"
+          placeholder="Task title"
           required
         />
       </div>
 
-      <div style={{ marginBottom: '20px' }}>
-        <label style={{ 
-          display: 'block', 
-          marginBottom: '8px', 
-          fontWeight: 600,
-          fontSize: '13px',
-          color: '#333'
-        }}>
-          Description
-        </label>
+      <div className="form-group">
+        <label className="form-label">Description</label>
         <textarea
+          className="form-textarea"
           value={data.description || ''}
           onChange={(e) => onChange({ description: e.target.value })}
-          style={{ 
-            width: '100%', 
-            padding: '10px 12px', 
-            borderRadius: '6px', 
-            border: '1px solid #d0d0d0',
-            fontSize: '14px',
-            color: '#333',
-            backgroundColor: '#fff',
-            minHeight: '80px',
-            resize: 'vertical',
-            fontFamily: 'inherit',
-            boxSizing: 'border-box'
-          }}
-          placeholder="Describe the task..."
+          placeholder="Describe the task"
         />
       </div>
 
-      <div style={{ marginBottom: '20px' }}>
-        <label style={{ 
-          display: 'block', 
-          marginBottom: '8px', 
-          fontWeight: 600,
-          fontSize: '13px',
-          color: '#333'
-        }}>
-          Assignee
-        </label>
+      <div className="form-group">
+        <label className="form-label">Assignee</label>
         <input
+          className="form-input"
           type="text"
           value={data.assignee || ''}
           onChange={(e) => onChange({ assignee: e.target.value })}
-          style={{ 
-            width: '100%', 
-            padding: '10px 12px', 
-            borderRadius: '6px', 
-            border: '1px solid #d0d0d0',
-            fontSize: '14px',
-            color: '#333',
-            backgroundColor: '#fff',
-            boxSizing: 'border-box'
-          }}
           placeholder="e.g., HR Executive"
         />
       </div>
 
-      <div style={{ marginBottom: '20px' }}>
-        <label style={{ 
-          display: 'block', 
-          marginBottom: '8px', 
-          fontWeight: 600,
-          fontSize: '13px',
-          color: '#333'
-        }}>
-          Due Date
-        </label>
+      <div className="form-group">
+        <label className="form-label">Due Date</label>
         <input
+          className="form-input"
           type="date"
           value={data.dueDate || ''}
           onChange={(e) => onChange({ dueDate: e.target.value })}
-          style={{ 
-            width: '100%', 
-            padding: '10px 12px', 
-            borderRadius: '6px', 
-            border: '1px solid #d0d0d0',
-            fontSize: '14px',
-            color: '#333',
-            backgroundColor: '#fff',
-            boxSizing: 'border-box'
-          }}
         />
       </div>
 
-      <div style={{ marginBottom: '20px' }}>
-        <label style={{ 
-          display: 'block', 
-          marginBottom: '8px', 
-          fontWeight: 600,
-          fontSize: '13px',
-          color: '#333'
-        }}>
-          Custom Fields (Optional)
-        </label>
-        
-        {data.customFields && Object.entries(data.customFields).map(([key, value]) => (
-          <div key={key} style={{ 
-            display: 'flex', 
-            gap: '8px', 
-            marginBottom: '8px',
-            alignItems: 'center'
-          }}>
-            <span style={{ 
-              flex: 1, 
-              padding: '8px 12px', 
-              backgroundColor: '#f0f0f0', 
-              borderRadius: '6px',
-              fontSize: '13px',
-              color: '#333',
-              border: '1px solid #e0e0e0'
-            }}>
-              <strong>{key}:</strong> {value}
-            </span>
-            <button 
-              onClick={() => removeCustomField(key)} 
-              style={{ 
-                padding: '8px 12px',
-                backgroundColor: '#ff4444',
-                color: 'white',
-                border: 'none',
-                borderRadius: '6px',
-                cursor: 'pointer',
-                fontSize: '14px',
-                fontWeight: 600
-              }}
-            >
-              ✕
-            </button>
-          </div>
-        ))}
-
-        <div style={{ 
-          display: 'flex', 
-          gap: '8px', 
-          marginTop: '12px',
-          flexDirection: 'column'
-        }}>
+      <div className="form-group">
+        <label className="form-label">Custom Fields (optional)</label>
+        <div className="pill-list">
+          {data.customFields && Object.entries(data.customFields).map(([key, value]) => (
+            <div key={key} className="pill">
+              <span style={{ flex: 1 }}><strong>{key}:</strong> {value}</span>
+              <button className="danger-btn" onClick={() => removeCustomField(key)}>Remove</button>
+            </div>
+          ))}
+        </div>
+        <div className="form-group">
           <input
+            className="form-input"
             type="text"
             placeholder="Key"
             value={customKey}
             onChange={(e) => setCustomKey(e.target.value)}
-            style={{ 
-              padding: '8px 12px', 
-              borderRadius: '6px', 
-              border: '1px solid #d0d0d0',
-              fontSize: '13px',
-              color: '#333',
-              backgroundColor: '#fff'
-            }}
           />
           <input
+            className="form-input"
             type="text"
             placeholder="Value"
             value={customValue}
             onChange={(e) => setCustomValue(e.target.value)}
-            style={{ 
-              padding: '8px 12px', 
-              borderRadius: '6px', 
-              border: '1px solid #d0d0d0',
-              fontSize: '13px',
-              color: '#333',
-              backgroundColor: '#fff'
-            }}
           />
-          <button 
-            onClick={addCustomField} 
-            style={{ 
-              padding: '10px 16px',
-              backgroundColor: '#2196F3',
-              color: 'white',
-              border: 'none',
-              borderRadius: '6px',
-              cursor: 'pointer',
-              fontSize: '14px',
-              fontWeight: 600
-            }}
-          >
-            Add Custom Field
-          </button>
+          <button className="primary-btn" onClick={addCustomField}>Add custom field</button>
         </div>
       </div>
     </div>

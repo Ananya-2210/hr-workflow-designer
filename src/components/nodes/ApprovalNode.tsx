@@ -1,22 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Handle, Position } from 'reactflow';
 import type { ApprovalNodeData } from '../../types/nodes';
 
 interface Props {
   data: ApprovalNodeData;
+  selected?: boolean;
 }
 
-export const ApprovalNode: React.FC<Props> = ({ data }) => {
+export const ApprovalNode: React.FC<Props> = ({ data, selected }) => {
+  const [hovered, setHovered] = useState(false);
+  const elevate = selected || hovered;
   return (
     <div style={{
-      padding: '15px 20px',
-      borderRadius: '8px',
-      border: '2px solid #FF9800',
-      backgroundColor: '#FFF3E0',
-      minWidth: '180px',
-      boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-      position: 'relative'
-    }}>
+      padding: '16px 20px',
+      borderRadius: '12px',
+      border: '1.5px solid #fb923c',
+      background: 'linear-gradient(135deg, #fff7ed 0%, #fff1e0 100%)',
+      minWidth: '200px',
+      boxShadow: elevate ? '0 18px 34px rgba(251, 146, 60, 0.24)' : '0 14px 30px rgba(251, 146, 60, 0.2)',
+      position: 'relative',
+      transition: 'transform 0.15s ease, box-shadow 0.15s ease',
+      transform: elevate ? 'translateY(-2px) scale(1.01)' : 'translateY(0) scale(1)',
+      borderColor: elevate ? '#f97316' : '#fb923c'
+    }}
+    onMouseEnter={() => setHovered(true)}
+    onMouseLeave={() => setHovered(false)}
+    >
       <Handle 
         type="target" 
         position={Position.Top}
