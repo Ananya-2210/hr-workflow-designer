@@ -26,7 +26,7 @@ export const NodeEditorPanel: React.FC = () => {
           fontSize: '14px',
           textAlign: 'center'
         }}>
-          👈 Select a node to edit its properties
+          Select a node to edit its properties
         </p>
       </div>
     );
