@@ -1,5 +1,5 @@
 import React from 'react';
-import { ApprovalNodeData } from '../../types/nodes';
+import type { ApprovalNodeData } from '../../types/nodes';
 
 interface Props {
   data: ApprovalNodeData;
@@ -9,29 +9,58 @@ interface Props {
 export const ApprovalNodeForm: React.FC<Props> = ({ data, onChange }) => {
   return (
     <div style={{ padding: '20px' }}>
-      <h3>Edit Approval Node</h3>
-      
-      <div style={{ marginBottom: '15px' }}>
-        <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>
+      <div style={{ marginBottom: '20px' }}>
+        <label style={{ 
+          display: 'block', 
+          marginBottom: '8px', 
+          fontWeight: 600,
+          fontSize: '13px',
+          color: '#333'
+        }}>
           Title *
         </label>
         <input
           type="text"
           value={data.title}
           onChange={(e) => onChange({ title: e.target.value })}
-          style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }}
+          style={{ 
+            width: '100%', 
+            padding: '10px 12px', 
+            borderRadius: '6px', 
+            border: '1px solid #d0d0d0',
+            fontSize: '14px',
+            color: '#333',
+            backgroundColor: '#fff',
+            boxSizing: 'border-box'
+          }}
+          placeholder="Enter approval title"
           required
         />
       </div>
 
-      <div style={{ marginBottom: '15px' }}>
-        <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>
+      <div style={{ marginBottom: '20px' }}>
+        <label style={{ 
+          display: 'block', 
+          marginBottom: '8px', 
+          fontWeight: 600,
+          fontSize: '13px',
+          color: '#333'
+        }}>
           Approver Role
         </label>
         <select
           value={data.approverRole || ''}
           onChange={(e) => onChange({ approverRole: e.target.value })}
-          style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }}
+          style={{ 
+            width: '100%', 
+            padding: '10px 12px', 
+            borderRadius: '6px', 
+            border: '1px solid #d0d0d0',
+            fontSize: '14px',
+            color: '#333',
+            backgroundColor: '#fff',
+            boxSizing: 'border-box'
+          }}
         >
           <option value="">Select Role</option>
           <option value="Manager">Manager</option>
@@ -42,18 +71,38 @@ export const ApprovalNodeForm: React.FC<Props> = ({ data, onChange }) => {
         </select>
       </div>
 
-      <div style={{ marginBottom: '15px' }}>
-        <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>
+      <div style={{ marginBottom: '20px' }}>
+        <label style={{ 
+          display: 'block', 
+          marginBottom: '8px', 
+          fontWeight: 600,
+          fontSize: '13px',
+          color: '#333'
+        }}>
           Auto-Approve Threshold
         </label>
         <input
           type="number"
           value={data.autoApproveThreshold || ''}
-          onChange={(e) => onChange({ autoApproveThreshold: parseInt(e.target.value) })}
-          style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }}
+          onChange={(e) => onChange({ autoApproveThreshold: parseInt(e.target.value) || undefined })}
+          style={{ 
+            width: '100%', 
+            padding: '10px 12px', 
+            borderRadius: '6px', 
+            border: '1px solid #d0d0d0',
+            fontSize: '14px',
+            color: '#333',
+            backgroundColor: '#fff',
+            boxSizing: 'border-box'
+          }}
           placeholder="e.g., 5000"
         />
-        <small style={{ color: '#666', fontSize: '12px' }}>
+        <small style={{ 
+          color: '#666', 
+          fontSize: '12px',
+          display: 'block',
+          marginTop: '5px'
+        }}>
           Auto-approve if amount is below this threshold
         </small>
       </div>

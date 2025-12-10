@@ -15,9 +15,23 @@ export const EndNode: React.FC<Props> = ({ data }) => {
       backgroundColor: '#FFEBEE',
       minWidth: '120px',
       textAlign: 'center',
-      boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+      boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+      position: 'relative'
     }}>
-      <Handle type="target" position={Position.Top} style={{ background: '#F44336' }} />
+      {/* Target Handle at Top */}
+      <Handle 
+        type="target" 
+        position={Position.Top}
+        id="target"
+        style={{ 
+          background: '#F44336',
+          width: '16px',
+          height: '16px',
+          border: '3px solid white',
+          boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
+          cursor: 'crosshair'
+        }} 
+      />
       
       <div style={{ fontWeight: 'bold', color: '#C62828', fontSize: '14px' }}>
         🏁 {data.title}
@@ -28,6 +42,8 @@ export const EndNode: React.FC<Props> = ({ data }) => {
           📊 Summary enabled
         </div>
       )}
+      
+      {/* NO source handle - End node only has target */}
     </div>
   );
 };

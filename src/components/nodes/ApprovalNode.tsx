@@ -17,7 +17,19 @@ export const ApprovalNode: React.FC<Props> = ({ data }) => {
       boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
       position: 'relative'
     }}>
-      <Handle type="target" position={Position.Top} style={{ background: '#FF9800' }} />
+      <Handle 
+        type="target" 
+        position={Position.Top}
+        id="target"
+        style={{ 
+          background: '#FF9800',
+          width: '16px',
+          height: '16px',
+          border: '3px solid white',
+          boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
+          cursor: 'crosshair'
+        }} 
+      />
       
       <div style={{ fontWeight: 'bold', color: '#E65100', marginBottom: '8px', fontSize: '14px' }}>
         ✅ {data.title}
@@ -35,7 +47,19 @@ export const ApprovalNode: React.FC<Props> = ({ data }) => {
         </div>
       )}
       
-      <Handle type="source" position={Position.Bottom} style={{ background: '#FF9800' }} />
+      <Handle 
+        type="source" 
+        position={Position.Bottom}
+        id="source"
+        style={{ 
+          background: '#FF9800',
+          width: '16px',
+          height: '16px',
+          border: '3px solid white',
+          boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
+          cursor: 'crosshair'
+        }} 
+      />
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { AutomatedStepNodeData } from '../../types/nodes';
-import { AutomationAction } from '../../api/types';
+import type { AutomatedStepNodeData } from '../../types/nodes';
+import type { AutomationAction } from '../../api/types';
 
 interface Props {
   data: AutomatedStepNodeData;
@@ -11,9 +11,10 @@ interface Props {
 export const AutomatedStepNodeForm: React.FC<Props> = ({ data, onChange }) => {
   const [actions, setActions] = useState<AutomationAction[]>([]);
   const [selectedAction, setSelectedAction] = useState<AutomationAction | null>(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    // Fetch automation actions from mock API
+    setLoading(true);
     axios.get('/api/automations')
       .then(response => {
         setActions(response.data);
@@ -22,7 +23,8 @@ export const AutomatedStepNodeForm: React.FC<Props> = ({ data, onChange }) => {
           setSelectedAction(action || null);
         }
       })
-      .catch(error => console.error('Failed to load automations:', error));
+      .catch(error => console.error('Failed to load automations:', error))
+      .finally(() => setLoading(false));
   }, [data.actionId]);
 
   const handleActionChange = (actionId: string) => {
@@ -30,7 +32,7 @@ export const AutomatedStepNodeForm: React.FC<Props> = ({ data, onChange }) => {
     setSelectedAction(action || null);
     onChange({ 
       actionId, 
-      parameters: {} // Reset parameters when action changes
+      parameters: {}
     });
   };
 
@@ -45,31 +47,61 @@ export const AutomatedStepNodeForm: React.FC<Props> = ({ data, onChange }) => {
 
   return (
     <div style={{ padding: '20px' }}>
-      <h3>Edit Automated Step</h3>
-      
-      <div style={{ marginBottom: '15px' }}>
-        <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>
+      <div style={{ marginBottom: '20px' }}>
+        <label style={{ 
+          display: 'block', 
+          marginBottom: '8px', 
+          fontWeight: 600,
+          fontSize: '13px',
+          color: '#333'
+        }}>
           Title *
         </label>
         <input
           type="text"
           value={data.title}
           onChange={(e) => onChange({ title: e.target.value })}
-          style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }}
+          style={{ 
+            width: '100%', 
+            padding: '10px 12px', 
+            borderRadius: '6px', 
+            border: '1px solid #d0d0d0',
+            fontSize: '14px',
+            color: '#333',
+            backgroundColor: '#fff',
+            boxSizing: 'border-box'
+          }}
+          placeholder="Enter step title"
           required
         />
       </div>
 
-      <div style={{ marginBottom: '15px' }}>
-        <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>
+      <div style={{ marginBottom: '20px' }}>
+        <label style={{ 
+          display: 'block', 
+          marginBottom: '8px', 
+          fontWeight: 600,
+          fontSize: '13px',
+          color: '#333'
+        }}>
           Action Type
         </label>
         <select
           value={data.actionId || ''}
           onChange={(e) => handleActionChange(e.target.value)}
-          style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }}
+          disabled={loading}
+          style={{ 
+            width: '100%', 
+            padding: '10px 12px', 
+            borderRadius: '6px', 
+            border: '1px solid #d0d0d0',
+            fontSize: '14px',
+            color: '#333',
+            backgroundColor: '#fff',
+            boxSizing: 'border-box'
+          }}
         >
-          <option value="">Select Action</option>
+          <option value="">{loading ? 'Loading...' : 'Select Action'}</option>
           {actions.map(action => (
             <option key={action.id} value={action.id}>
               {action.label}
@@ -79,20 +111,41 @@ export const AutomatedStepNodeForm: React.FC<Props> = ({ data, onChange }) => {
       </div>
 
       {selectedAction && (
-        <div style={{ marginBottom: '15px' }}>
-          <label style={{ display: 'block', marginBottom: '10px', fontWeight: 'bold' }}>
+        <div style={{ marginBottom: '20px' }}>
+          <label style={{ 
+            display: 'block', 
+            marginBottom: '12px', 
+            fontWeight: 600,
+            fontSize: '13px',
+            color: '#333'
+          }}>
             Action Parameters
           </label>
           {selectedAction.params.map(param => (
-            <div key={param} style={{ marginBottom: '10px' }}>
-              <label style={{ display: 'block', marginBottom: '5px', fontSize: '14px' }}>
-                {param}
+            <div key={param} style={{ marginBottom: '15px' }}>
+              <label style={{ 
+                display: 'block', 
+                marginBottom: '5px', 
+                fontSize: '12px',
+                color: '#666',
+                textTransform: 'capitalize'
+              }}>
+                {param.replace(/_/g, ' ')}
               </label>
               <input
                 type="text"
                 value={data.parameters?.[param] || ''}
                 onChange={(e) => handleParameterChange(param, e.target.value)}
-                style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }}
+                style={{ 
+                  width: '100%', 
+                  padding: '10px 12px', 
+                  borderRadius: '6px', 
+                  border: '1px solid #d0d0d0',
+                  fontSize: '14px',
+                  color: '#333',
+                  backgroundColor: '#fff',
+                  boxSizing: 'border-box'
+                }}
                 placeholder={`Enter ${param}`}
               />
             </div>

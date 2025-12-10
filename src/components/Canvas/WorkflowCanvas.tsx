@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import ReactFlow, { Background, Controls, MiniMap } from 'reactflow';
+import ReactFlow, { Background, Controls } from 'reactflow';
 import 'reactflow/dist/style.css';
 import { useWorkflow } from '../../context/WorkflowContext';
 import { StartNode } from '../nodes/StartNode';
@@ -26,13 +26,11 @@ export const WorkflowCanvas: React.FC = () => {
     setSelectedNode
   } = useWorkflow();
 
-  console.log('Canvas nodes:', nodes); // Debug line
-
   const onNodeClick = useCallback((event: React.MouseEvent, node: any) => {
     setSelectedNode(node.id);
   }, [setSelectedNode]);
 
-  return (  // ← MAKE SURE THIS return IS HERE
+  return (
     <div style={{ width: '100%', height: '100%' }}>
       <ReactFlow
         nodes={nodes}
@@ -46,7 +44,6 @@ export const WorkflowCanvas: React.FC = () => {
       >
         <Background />
         <Controls />
-        <MiniMap />
       </ReactFlow>
     </div>
   );

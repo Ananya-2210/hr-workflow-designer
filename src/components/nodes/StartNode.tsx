@@ -15,8 +15,11 @@ export const StartNode: React.FC<Props> = ({ data }) => {
       backgroundColor: '#E8F5E9',
       minWidth: '120px',
       textAlign: 'center',
-      boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+      boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+      position: 'relative'
     }}>
+      {/* NO target handle - Start node only has source */}
+      
       <div style={{ fontWeight: 'bold', color: '#2E7D32', fontSize: '14px' }}>
         🚀 {data.title}
       </div>
@@ -25,7 +28,21 @@ export const StartNode: React.FC<Props> = ({ data }) => {
           {Object.keys(data.metadata).length} metadata fields
         </div>
       )}
-      <Handle type="source" position={Position.Bottom} style={{ background: '#4CAF50' }} />
+      
+      {/* Source Handle at Bottom */}
+      <Handle 
+        type="source" 
+        position={Position.Bottom} 
+        id="source"
+        style={{ 
+          background: '#4CAF50',
+          width: '16px',
+          height: '16px',
+          border: '3px solid white',
+          boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
+          cursor: 'crosshair'
+        }} 
+      />
     </div>
   );
 };
