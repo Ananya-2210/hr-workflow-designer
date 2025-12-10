@@ -47,12 +47,12 @@ export const EndNode: React.FC<Props> = ({ data, selected }) => {
       />
       
       <div style={{ fontWeight: 'bold', color: '#C62828', fontSize: '14px' }}>
-        🏁 {data.title}
+         {data.title}
       </div>
       
       {data.summaryFlag && (
         <div style={{ fontSize: '11px', color: '#666', marginTop: '5px' }}>
-          📊 Summary enabled
+           Summary enabled
         </div>
       )}
       
