@@ -45,7 +45,7 @@ export const ApprovalNode: React.FC<Props> = ({ data, selected }) => {
       />
       
       <div style={{ fontWeight: 'bold', color: '#E65100', marginBottom: '8px', fontSize: '14px' }}>
-        ✅ {data.title}
+         {data.title}
       </div>
       
       {data.approverRole && (
